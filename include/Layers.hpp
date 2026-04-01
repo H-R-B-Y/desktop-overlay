@@ -4,26 +4,28 @@
 #include "helpers.hpp"
 #include "Popups.hpp"
 #include <memory>
+#include "WidgetContainer.hpp"
 
-class TopOverlay : public Layer {
+
+class TopOverlay : public Layer, public WidgetContainer {
 public:
 	TopOverlay(Overlay &owner, std::string name, Config config);
 	~TopOverlay() override;
 
 protected:
-	void on_frame(int global_tick) override;
-	void on_draw(cairo_t *cr, int width, int height) override;
-	void on_hover_enter(double x, double y) override;
-	void on_hover_move(double x, double y) override;
-	void on_hover_leave() override;
-	bool on_click_pressed(int n_press, double x, double y) override;
+	void	on_frame(int global_tick) override;
+	void	on_draw(cairo_t *cr, int width, int height) override;
+	void	on_hover_enter(double x, double y) override;
+	void	on_hover_move(double x, double y) override;
+	void	on_hover_leave() override;
+	bool	on_click_pressed(int n_press, double x, double y) override;
 
 private:
-	bool size_known_;
-	Rect time_widget_;
-	Rect power_widget_;
-	Popup::PopupHandler	time_handler_;
-	Popup::PopupHandler	power_handler_;
+	bool 										size_known_;
+	Rect 										time_widget_;
+	Rect 										power_widget_;
+	Popup::PopupHandler							power_handler_;
+	Popup::PopupHandler							time_handler_;
 };
 
 

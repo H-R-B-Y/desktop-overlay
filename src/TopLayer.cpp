@@ -3,11 +3,11 @@
 #include <iomanip>
 #include <iostream>
 
+
 TopOverlay::TopOverlay(Overlay &owner, std::string name, Config config)
-	: Layer(owner, std::move(name), config), size_known_(false),
+	: Layer(owner, std::move(name), config), WidgetContainer(), size_known_(false),
 	time_handler_(), power_handler_()
 {
-	
 }
 
 TopOverlay::~TopOverlay()
@@ -115,6 +115,7 @@ void TopOverlay::on_hover_move(double x, double y)
 {
 	time_handler_.widget_hovered = time_widget_.contains(x, y);
 	power_handler_.widget_hovered = power_widget_.contains(x, y);
+	handle_hover_drawn_widgets(x, y);
 }
 
 void TopOverlay::on_hover_leave()
@@ -125,6 +126,7 @@ void TopOverlay::on_hover_leave()
 
 bool TopOverlay::on_click_pressed(int n_press, double x, double y)
 {
-	(void)n_press;(void)x;(void)y;return false;
+	(void)n_press;(void)x;(void)y;
+	return handle_click_drawn_widgets(n_press, x, y);
 }
 

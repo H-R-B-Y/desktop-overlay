@@ -31,13 +31,13 @@ void TimeMenu::on_draw(cairo_t *cr, int width, int height)
 	std::array<float, 3> col = colours(0);
 	clear_to_transparent(cr);
 	cairo_set_source_rgba(cr, col[0],col[1],col[2], 1.0);
-	cairo_rounded_rect(cr, 0,0,width,height,15,RoundedCorner::ALL);
+	cairo_rounded_rect(cr, 0,0,width,height,15,RoundedCorner::BOTTOM_LEFT | RoundedCorner::BOTTOM_RIGHT);
 	cairo_fill(cr);
-	cairo_set_source_rgb(cr, 1.0, 0.0,0.0);
-	cairo_new_path(cr);
-	cairo_move_to(cr, width / 2, 0);
-	cairo_line_to(cr, width / 2, height);
-	cairo_stroke(cr);
+	// cairo_set_source_rgb(cr, 1.0, 0.0,0.0);
+	// cairo_new_path(cr);
+	// cairo_move_to(cr, width / 2, 0);
+	// cairo_line_to(cr, width / 2, height);
+	// cairo_stroke(cr);
 }
 void TimeMenu::on_hover_enter(double x, double y)
 {
@@ -89,8 +89,8 @@ void	TimeMenu::on_created()
 	gtk_grid_attach(GTK_GRID(grid_), date_label_, 0, 1, 1, 1);
 
 	calendar_ = gtk_calendar_new();
-	gtk_grid_attach(GTK_GRID(grid_), calendar_, 0, 2, 1, 1);
-	gtk_widget_set_vexpand(calendar_, TRUE);
+	// gtk_grid_attach(GTK_GRID(grid_), calendar_, 0, 2, 1, 1);
+	// gtk_widget_set_vexpand(calendar_, TRUE);
 	add_overlay_child(grid_);
 }
 void TimeMenu::on_closing()

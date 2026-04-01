@@ -2,8 +2,8 @@
 
 LayerWidget::LayerWidget(WidgetType type, Rect geo)
 	:
-	geo(geo),
-	type(type)
+	type(type),
+	geo(geo)
 {
 }
 

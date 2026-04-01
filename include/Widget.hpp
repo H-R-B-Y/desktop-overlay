@@ -22,6 +22,7 @@ public:
 	// virtual void	on_scroll();
 	bool					hit_test(double x, double y);
 	std::array<double, 2>	to_local(double x, double y);
+	WidgetType	type;
 
 protected:
 	virtual void	on_draw(cairo_t *cr, int width, int height);
@@ -34,5 +35,5 @@ private:
 	static void click_pressed_cb(GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
 
 	Rect		geo;
-	WidgetType	type;
+
 };
