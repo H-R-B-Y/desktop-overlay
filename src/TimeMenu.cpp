@@ -28,16 +28,11 @@ void TimeMenu::on_frame(int global_tick)
 }
 void TimeMenu::on_draw(cairo_t *cr, int width, int height)
 {
-	std::array<float, 3> col = colours(0);
+	std::array<float, 3> col = colours(1);
 	clear_to_transparent(cr);
 	cairo_set_source_rgba(cr, col[0],col[1],col[2], 1.0);
 	cairo_rounded_rect(cr, 0,0,width,height,15,RoundedCorner::BOTTOM_LEFT | RoundedCorner::BOTTOM_RIGHT);
 	cairo_fill(cr);
-	// cairo_set_source_rgb(cr, 1.0, 0.0,0.0);
-	// cairo_new_path(cr);
-	// cairo_move_to(cr, width / 2, 0);
-	// cairo_line_to(cr, width / 2, height);
-	// cairo_stroke(cr);
 }
 void TimeMenu::on_hover_enter(double x, double y)
 {

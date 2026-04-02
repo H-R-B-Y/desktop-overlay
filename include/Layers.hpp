@@ -22,10 +22,8 @@ protected:
 
 private:
 	bool 										size_known_;
-	Rect 										time_widget_;
 	Rect 										power_widget_;
 	Popup::PopupHandler							power_handler_;
-	Popup::PopupHandler							time_handler_;
 };
 
 
