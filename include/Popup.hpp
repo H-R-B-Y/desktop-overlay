@@ -6,7 +6,8 @@
 class Popup : public Layer
 {
 public:
-	struct PopupHandler {
+	class PopupHandler {
+	public:
 		bool					widget_hovered = false;
 		bool					popup_hovered = false;
 		bool					close_pending = false;
@@ -14,7 +15,7 @@ public:
 		std::unique_ptr<Popup>	self = nullptr;
 
 		template <typename T, typename... Args>
-		T *ensure_popup(Args&&... args)
+		T					*ensure_popup(Args&&... args)
 		{
 			if (!self)
 			{
@@ -23,12 +24,12 @@ public:
 			return static_cast<T*>(self.get());
 		}
 
-		static gboolean			close_popup_cb(gpointer user_data);
-		void					unschedule_close_popup(void);
-		void					schedule_close_popup(void);
-		void					close_popup(void);
+		static gboolean		close_popup_cb(gpointer user_data);
+		virtual void		unschedule_close_popup(void);
+		virtual void		schedule_close_popup(void);
+		virtual void		close_popup(void);
 
-		inline bool				is_open(void){return widget_hovered | popup_hovered;};
+		virtual inline bool	is_open(void){return widget_hovered | popup_hovered;};
 	};
 	virtual ~Popup() = 0;
 	

@@ -1,5 +1,5 @@
 #include "Popup.hpp"
-
+#include <iostream>
 Popup::Popup(Overlay &owner, std::string name, Layer::Config cfg, PopupHandler *handler)
 	: Layer(owner, name, cfg), handler(handler)
 {
@@ -32,14 +32,23 @@ void Popup::PopupHandler::unschedule_close_popup(void)
 
 void Popup::PopupHandler::schedule_close_popup(void)
 {
+	std::cout << "schedule_close_popup called, is_open() = " << is_open() << "\n";
+	if (!self)
+	{
+		std::cout << "  No popup instance (self == nullptr), skipping timer\n";
+		close_pending = false;
+		return ;
+	}
 	if (this->close_pending && this->close_timer_id != 0)
 		return ;
 	this->close_pending = true;
 	this->close_timer_id = g_timeout_add(120, close_popup_cb, this);
+	std::cout << "  Timer scheduled\n";
 }
 
 void Popup::PopupHandler::close_popup(void)
 {
+	std::cout << "close_popup called\n";
 	if (!self) return;
 	self->close();
 	self.reset();

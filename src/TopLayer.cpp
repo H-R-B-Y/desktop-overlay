@@ -6,8 +6,7 @@
 
 
 TopOverlay::TopOverlay(Overlay &owner, std::string name, Config config)
-	: Layer(owner, std::move(name), config), WidgetContainer(), size_known_(false),
-	power_handler_()
+	: Layer(owner, std::move(name), config), WidgetContainer(), size_known_(false)
 {
 }
 
@@ -43,24 +42,24 @@ void TopOverlay::on_frame(int global_tick)
 	// 	}
 	// }
 	handle_tick_widgets(global_tick);
-	{ // power handler open and close paths
-		if (power_handler_.is_open())
-		{
-			if (!power_handler_.self)
-			{
-				power_handler_.ensure_popup<PowerMenu>(owner());
-				power_handler_.self->create(owner().application());
-			}
-			if (power_handler_.close_pending)
-			{
-				power_handler_.schedule_close_popup();
-			}
-		}
-		else if (!power_handler_.is_open() && power_handler_.self && !power_handler_.close_pending)
-		{
-			power_handler_.schedule_close_popup();
-		}
-	}
+	// { // power handler open and close paths
+	// 	if (power_handler_.is_open())
+	// 	{
+	// 		if (!power_handler_.self)
+	// 		{
+	// 			power_handler_.ensure_popup<PowerMenu>(owner());
+	// 			power_handler_.self->create(owner().application());
+	// 		}
+	// 		if (power_handler_.close_pending)
+	// 		{
+	// 			power_handler_.unschedule_close_popup();
+	// 		}
+	// 	}
+	// 	else if (power_handler_.self && !power_handler_.close_pending)
+	// 	{
+	// 		power_handler_.schedule_close_popup();
+	// 	}
+	// }
 }
 
 void TopOverlay::on_draw(cairo_t *cr, int width, int height)
@@ -72,7 +71,8 @@ void TopOverlay::on_draw(cairo_t *cr, int width, int height)
 	if (!size_known_)
 	{
 		add_widget(std::make_unique<TimeWidget>(owner(), Rect{std::max(8.0, (panel_end - 140.0) * 0.5), 0.0, 140.0, (double)height}));
-		power_widget_ = {std::max(8.0, panel_end - 48.0), 0.0, 38.0, (double)height};
+		add_widget(std::make_unique<PowerWidget>(owner(), Rect{std::max(8.0, panel_end - 48.0), 0.0, 38.0, (double)height}));
+		// power_widget_ = {};
 		size_known_ = true;
 	}
 	// draws the background of the panel including the cut corner
@@ -92,21 +92,15 @@ void TopOverlay::on_draw(cairo_t *cr, int width, int height)
 	// cairo_fill(cr);
 
 	// draws the power widget
-	cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, power_handler_.widget_hovered ? 0.28 : 0.18);
-	cairo_rounded_rect(cr, power_widget_.x, power_widget_.y + 4, power_widget_.w, widget_h, 10, RoundedCorner::ALL);
-	cairo_fill(cr);
+	// cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, power_handler_.widget_hovered ? 0.28 : 0.18);
+	// cairo_rounded_rect(cr, power_widget_.x, power_widget_.y + 4, power_widget_.w, widget_h, 10, RoundedCorner::ALL);
+	// cairo_fill(cr);
 
 	// cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 0.95);
 	// draw_centered_text(cr, current_time_string("%H:%M"), time_widget_.x, time_widget_.y, time_widget_.w, time_widget_.h,
 	// 	"Sans", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD, 16.0);
 
-	cairo_new_path(cr);
-	cairo_set_line_width(cr, 2.0);
-	cairo_arc(cr, power_widget_.x + power_widget_.w * 0.5, power_widget_.y + power_widget_.h * 0.5 + 1.0, 6.0, -M_PI * 0.3, M_PI * 1.3);
-	cairo_stroke(cr);
-	cairo_move_to(cr, power_widget_.x + power_widget_.w * 0.5, power_widget_.y + 8.0);
-	cairo_line_to(cr, power_widget_.x + power_widget_.w * 0.5, power_widget_.y + power_widget_.h * 0.5);
-	cairo_stroke(cr);
+
 }
 
 void TopOverlay::on_hover_enter(double x, double y)
@@ -117,14 +111,14 @@ void TopOverlay::on_hover_enter(double x, double y)
 void TopOverlay::on_hover_move(double x, double y)
 {
 	// time_handler_.widget_hovered = time_widget_.contains(x, y);
-	power_handler_.widget_hovered = power_widget_.contains(x, y);
+	// power_handler_.widget_hovered = power_widget_.contains(x, y);
 	handle_hover_drawn_widgets(x, y);
 }
 
 void TopOverlay::on_hover_leave()
 {
 	// time_handler_.widget_hovered= false;
-	power_handler_.widget_hovered = false;
+	// power_handler_.widget_hovered = false;
 	handle_hover_leave_widgets();
 }
 

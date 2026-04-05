@@ -7,14 +7,14 @@ TimeWidget::TimeWidget(Overlay &owner, Rect geo)
 	LayerWidget(LayerWidget::WidgetType::DRAWN, geo),
 	owner(owner)
 {
-	std::cout << "created time widget" << std::endl;
+	// std::cout << "created time widget" << std::endl;
 }
 
 TimeWidget::~TimeWidget(void)
 { 
 	if (_handler.close_pending)
 		_handler.unschedule_close_popup();
-	std::cout << "destroyed time widget" << std::endl;
+	// std::cout << "destroyed time widget" << std::endl;
 }
 
 void	TimeWidget::on_tick(void)
@@ -36,12 +36,9 @@ void	TimeWidget::on_tick(void)
 			_handler.unschedule_close_popup();
 		}
 	}
-	else
+	else if (_handler.self && !_handler.close_pending)
 	{
-		if (!_handler.close_pending)
-		{
-			_handler.schedule_close_popup();
-		}
+		_handler.schedule_close_popup();
 	}
 }
 

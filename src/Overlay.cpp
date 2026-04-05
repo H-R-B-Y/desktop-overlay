@@ -20,11 +20,20 @@ void Overlay::install_transparent_css()
 	GtkCssProvider *provider = gtk_css_provider_new();
 	gtk_css_provider_load_from_string(provider,
 		"window.overlay-window { background-color: transparent; }"
-		"window.overlay-window > * { background-color: transparent; }");
+		"window.overlay-window > * { background-color: transparent; }"
+		".power-menu-grid > .power-menu-button {"
+		"  background-color: rgba(66, 67, 67, 0.78);"
+		"  border-radius: 15px;"
+		"  border: 1px solid rgba(255, 255, 255, 0.12);"
+		"}"
+		".power-menu-grid > .power-menu-button > label.power-menu-button-label {"
+		"  color: rgb(242, 245, 248);"
+		"  font-weight: 600;"
+		"}");
 	gtk_style_context_add_provider_for_display(
 		gdk_display_get_default(),
 		GTK_STYLE_PROVIDER(provider),
-		GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+		GTK_STYLE_PROVIDER_PRIORITY_USER);
 	g_object_unref(provider);
 }
 

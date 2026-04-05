@@ -21,6 +21,25 @@ protected:
 	void	on_draw(cairo_t *cr, int width, int height) override;
 
 private:
-	Popup::PopupHandler	_handler;
-	Overlay				&owner;
+	Popup::PopupHandler			_handler;
+	Overlay						&owner;
+};
+
+class	PowerWidget : public LayerWidget
+{
+public:
+	PowerWidget(Overlay &owner, Rect geo);
+	~PowerWidget();
+
+	void	on_hover_enter(double x, double y) override;
+	void	on_hover_move(double x, double y) override;
+	void	on_hover_leave(void) override;
+
+	void	on_tick(void) override;
+protected:
+	void	on_draw(cairo_t *cr, int width, int height) override;
+
+private:
+	PowerMenu::PowerMenuHandler	_handler;
+	Overlay						&owner;
 };

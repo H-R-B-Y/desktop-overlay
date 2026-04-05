@@ -22,8 +22,8 @@ protected:
 
 private:
 	bool 										size_known_;
-	Rect 										power_widget_;
-	Popup::PopupHandler							power_handler_;
+	// Rect 										power_widget_;
+	// PowerMenu::PowerMenuHandler					power_handler_;
 };
 
 
