@@ -112,6 +112,7 @@ void TopOverlay::on_hover_move(double x, double y)
 {
 	// time_handler_.widget_hovered = time_widget_.contains(x, y);
 	// power_handler_.widget_hovered = power_widget_.contains(x, y);
+	owner().get_monitor_geo(window_);
 	handle_hover_drawn_widgets(x, y);
 }
 

@@ -98,9 +98,31 @@ GdkRectangle	Overlay::get_monitor_geo(GtkWidget *parent_)
 	{
 		throw ;
 	}
+	// std::cout << gdk_display_get_name(display) << std::endl;
+	// std::cout << gdk_monitor_get_connector(monitor) << std::endl;
 	GdkRectangle	output;
 	gdk_monitor_get_geometry(monitor, &output);
 	return output;
+}
+
+std::string Overlay::get_monitor_name(GtkWidget *parent_)
+{
+	GdkSurface	*surface = gtk_native_get_surface(GTK_NATIVE(parent_));
+	if (!surface)
+	{
+		throw ;
+	}
+	GdkDisplay *display = gdk_surface_get_display(surface);
+	if (!display)
+	{
+		throw ;
+	}
+	GdkMonitor *monitor = gdk_display_get_monitor_at_surface(display, surface);
+	if (!monitor)
+	{
+		throw ;
+	}
+	return std::string(gdk_monitor_get_connector(monitor));
 }
 
 void Overlay::activate(GtkApplication *app)

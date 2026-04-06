@@ -57,6 +57,7 @@ def subscribe_loop():
 				_event = json.loads(line)  # parse to validate
 			except json.JSONDecodeError:
 				continue
+			print(json.dumps(_event, indent=4))
 			render_state()
 
 def main():

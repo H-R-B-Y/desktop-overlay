@@ -18,6 +18,7 @@ public:
 	GtkApplication *application() const;
 	void queue_redraw_all();
 	GdkRectangle	get_monitor_geo(GtkWidget *parent_);
+	std::string		get_monitor_name(GtkWidget *parent_);
 
 private:
 	void install_transparent_css();
