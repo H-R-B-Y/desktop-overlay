@@ -97,9 +97,7 @@ void	WidgetContainer::handle_tick_widgets(int global_tick)
 
 void	WidgetContainer::handle_scroll_drawn_widgets(double dx, double dy)
 {
-	for (std::vector<std::unique_ptr<LayerWidget>>::iterator a = drawn_widgets.begin();
-		a != drawn_widgets.end(); a++)
-	{
-		a->get()->on_scroll(dx, dy);
-	}
+	if (!hovered)
+		return ;
+	hovered->on_scroll(dx, dy);
 }

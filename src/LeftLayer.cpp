@@ -1,6 +1,7 @@
 #include "Layers.hpp"
 #include "Overlay.hpp"
 #include "WorkspaceWidget.hpp"
+#include "VolumeWidget.hpp"
 
 LeftOverlay::LeftOverlay(Overlay &owner, std::string name, Config config)
 	:
@@ -15,6 +16,7 @@ void LeftOverlay::on_draw(cairo_t *cr, int width, int height)
 	{
 		size_known_ = true;
 		add_widget(std::make_unique<WorkspaceWidget>(owner(), Rect{0, 40, 30, 100}, window_));
+		add_widget(std::make_unique<VolumeWidget>(owner(), Rect{0, 200, 30, 100}));
 	}
 	std::array<float, 3> col = colours(0);
 	clear_to_transparent(cr);
@@ -56,4 +58,9 @@ void LeftOverlay::on_hover_leave()
 void	LeftOverlay::on_scroll(double dx, double dy)
 {
 	handle_scroll_drawn_widgets(dx, dy);
+}
+
+void LeftOverlay::on_frame(int global_tick)
+{
+	handle_tick_widgets(global_tick);
 }

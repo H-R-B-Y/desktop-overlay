@@ -57,7 +57,8 @@ void	PowerWidget::on_draw(cairo_t *cr, int width, int height)
 	cairo_fill(cr);
 	cairo_new_path(cr);
 	cairo_set_line_width(cr, 2.0);
-	cairo_set_source_rgba(cr, 1.0, 1.0, 1.0, 1.0);
+	std::array<float, 3> col = colours(1);
+	cairo_set_source_rgba(cr, col[0], col[1], col[2], 1.0);
 	cairo_arc(cr, 0 + geo.w * 0.5, 0 + geo.h * 0.5 + 1.0, 6.0, -M_PI * 0.3, M_PI * 1.3);
 	cairo_stroke(cr);
 	cairo_move_to(cr, 0 + geo.w * 0.5, 0 + 8.0);

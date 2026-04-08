@@ -161,15 +161,19 @@ void	WorkspaceWidget::on_draw(cairo_t *cr, int width, int height)
 		if (ws_idx < 0 || ws_idx >= total_workspaces)
 			continue ;
 
+		std::array<float, 3> inactive = {0,0,0};
+		std::array<float, 3> active = colours(1);
+		std::array<float, 3> urgent = colours(3);
+
 		const workspace_entry &ws = workspaces_[ws_idx];
 		if (ws.urgent)
-			cairo_set_source_rgba(cr, 0.90, 0.20, 0.20, 1.0);
+			cairo_set_source_rgba(cr, urgent[0], urgent[1], urgent[2], 1.0);
 		else if (ws.focused)
-			cairo_set_source_rgba(cr, 0.95, 0.95, 0.95, 1.0);
+			cairo_set_source_rgba(cr, active[0], active[1], active[2], 1.0);
 		else if (ws.visible)
-			cairo_set_source_rgba(cr, 0.75, 0.75, 0.75, 0.95);
+			cairo_set_source_rgba(cr, active[0], active[1], active[2], 0.75);
 		else
-			cairo_set_source_rgba(cr, 0.24, 0.0, 0.25, 1.0);
+			cairo_set_source_rgba(cr, inactive[0], inactive[1], inactive[2], 0.2);
 
 		cairo_arc(cr, x_pos, cy, radius, 0.0, 6.283185307179586);
 		cairo_fill(cr);

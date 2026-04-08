@@ -32,7 +32,8 @@ class LeftOverlay : public Layer, public WidgetContainer {
 public:
 	LeftOverlay(Overlay &owner, std::string name, Config config);
 
-	protected:
+protected:
+	void on_frame(int global_tick) override;
 	void on_draw(cairo_t *cr, int width, int height) override;
 	void on_hover_enter(double x, double y) override;
 	void on_hover_move(double x, double y) override;
