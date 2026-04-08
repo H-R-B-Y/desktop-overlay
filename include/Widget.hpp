@@ -18,10 +18,11 @@ public:
 
 	void					draw(cairo_t *cr);
 	virtual void			on_tick(void);
-	virtual bool			on_click(int n_click, double x, double y);
+	virtual bool			on_click(int button, int n_click, double x, double y);
 	virtual void			on_hover_enter(double x, double y);
 	virtual void			on_hover_move(double x, double y);
 	virtual void			on_hover_leave();
+	virtual void			on_scroll(double dx, double dy);
 	// virtual void	on_scroll();
 	
 	bool					hit_test(double x, double y);

@@ -23,7 +23,7 @@ void	LayerWidget::on_tick(void)
 {
 }
 
-bool	LayerWidget::on_click(int n_click, double x, double y)
+bool	LayerWidget::on_click(int button, int n_click, double x, double y)
 {
 	return false;
 }
@@ -92,7 +92,8 @@ void	LayerWidget::click_pressed_cb(GtkGestureClick *gesture, int n_press, double
 {
 	(void)gesture;
 	LayerWidget *self = static_cast<LayerWidget *>(user_data);
-	if (self->on_click(n_press, x, y))
+	int button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(gesture));
+	if (self->on_click(button, n_press, x, y))
 		gtk_gesture_set_state(GTK_GESTURE(gesture), GTK_EVENT_SEQUENCE_CLAIMED);
 }
 
@@ -109,4 +110,9 @@ Rect	LayerWidget::widget_get_geo(void) const
 GtkWidget				*LayerWidget::widget_get_widget(void) const
 {
 	return this->_widget;
+}
+
+void	LayerWidget::on_scroll(double dx, double dy)
+{
+	(void)dx;(void)dy;
 }

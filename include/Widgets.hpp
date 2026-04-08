@@ -34,7 +34,7 @@ public:
 	void	on_hover_enter(double x, double y) override;
 	void	on_hover_move(double x, double y) override;
 	void	on_hover_leave(void) override;
-
+	
 	void	on_tick(void) override;
 protected:
 	void	on_draw(cairo_t *cr, int width, int height) override;

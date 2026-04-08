@@ -49,11 +49,11 @@ void	WidgetContainer::handle_hover_leave_widgets(void)
 	}
 }
 
-bool	WidgetContainer::handle_click_drawn_widgets(int n_click, double x, double y)
+bool	WidgetContainer::handle_click_drawn_widgets(int button, int n_click, double x, double y)
 {
 	if (!hovered)
 		return false;
-	return hovered->on_click(n_click, x, y);
+	return hovered->on_click(button, n_click, x, y);
 }
 
 bool	WidgetContainer::is_hovered() const
@@ -92,5 +92,14 @@ void	WidgetContainer::handle_tick_widgets(int global_tick)
 		a != drawn_widgets.end(); a++)
 	{
 		a->get()->on_tick();
+	}
+}
+
+void	WidgetContainer::handle_scroll_drawn_widgets(double dx, double dy)
+{
+	for (std::vector<std::unique_ptr<LayerWidget>>::iterator a = drawn_widgets.begin();
+		a != drawn_widgets.end(); a++)
+	{
+		a->get()->on_scroll(dx, dy);
 	}
 }

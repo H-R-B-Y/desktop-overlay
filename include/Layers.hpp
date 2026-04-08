@@ -18,7 +18,8 @@ protected:
 	void	on_hover_enter(double x, double y) override;
 	void	on_hover_move(double x, double y) override;
 	void	on_hover_leave() override;
-	bool	on_click_pressed(int n_press, double x, double y) override;
+	bool	on_click_pressed(int button, int n_press, double x, double y) override;
+	void	on_scroll(double dx, double dy) override;
 
 private:
 	bool 										size_known_;
@@ -27,7 +28,7 @@ private:
 };
 
 
-class LeftOverlay : public Layer {
+class LeftOverlay : public Layer, public WidgetContainer {
 public:
 	LeftOverlay(Overlay &owner, std::string name, Config config);
 
@@ -36,8 +37,9 @@ public:
 	void on_hover_enter(double x, double y) override;
 	void on_hover_move(double x, double y) override;
 	void on_hover_leave() override;
+	void on_scroll(double dx, double dy) override;
 
 private:
-	Rect widget_bounds_;
-	bool widget_hovered_;
+	bool size_known_ = false;
+
 };

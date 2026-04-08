@@ -9,7 +9,8 @@ const Layer::Config TimeMenu::time_menu_config_ = {
 		{true, false, true, false}, // anchors
 		false, // exclusive
 		true, // capture hover
-		true // capture click
+		true, // capture click
+		false
 };
 
 TimeMenu::TimeMenu(Overlay &owner, Popup::PopupHandler *handler)
@@ -52,10 +53,10 @@ void TimeMenu::on_hover_leave()
 	if (handler)
 		handler->popup_hovered = false;
 }
-bool TimeMenu::on_click_pressed(int n_press, double x, double y)
+bool TimeMenu::on_click_pressed(int button, int n_press, double x, double y)
 {
 	(void)x;(void)y;(void)n_press;
-	std::cout << "Clicked the time menu" << std::endl;
+	std::cout << button << " : Clicked the time menu" << std::endl;
 	return false;
 }
 

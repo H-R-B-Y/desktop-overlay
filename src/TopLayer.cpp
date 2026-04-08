@@ -123,9 +123,13 @@ void TopOverlay::on_hover_leave()
 	handle_hover_leave_widgets();
 }
 
-bool TopOverlay::on_click_pressed(int n_press, double x, double y)
+bool TopOverlay::on_click_pressed(int button, int n_press, double x, double y)
 {
 	(void)n_press;(void)x;(void)y;
-	return handle_click_drawn_widgets(n_press, x, y);
+	return handle_click_drawn_widgets(button, n_press, x, y);
 }
 
+void	TopOverlay::on_scroll(double dx, double dy)
+{
+	handle_scroll_drawn_widgets(dx, dy);
+}

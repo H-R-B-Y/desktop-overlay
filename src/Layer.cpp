@@ -109,8 +109,9 @@ void Layer::on_hover_leave()
 {
 }
 
-bool Layer::on_click_pressed(int n_press, double x, double y)
+bool Layer::on_click_pressed(int button, int n_press, double x, double y)
 {
+	(void)button;
 	(void)n_press;
 	(void)x;
 	(void)y;
@@ -154,8 +155,16 @@ void Layer::click_pressed_cb(GtkGestureClick *gesture, int n_press, double x, do
 {
 	(void)gesture;
 	Layer *self = static_cast<Layer *>(user_data);
-	if (self->on_click_pressed(n_press, x, y))
+	int button = gtk_gesture_single_get_current_button(GTK_GESTURE_SINGLE(gesture));
+	if (self->on_click_pressed(button, n_press, x, y))
 		gtk_gesture_set_state(GTK_GESTURE(gesture), GTK_EVENT_SEQUENCE_CLAIMED);
+}
+
+void	Layer::scroll_event_cb(GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data)
+{
+	(void)controller;
+	Layer *self = static_cast<Layer *>(user_data);
+	self->on_scroll(dx, dy);
 }
 
 void Layer::attach_shared_handlers()
@@ -174,6 +183,14 @@ void Layer::attach_shared_handlers()
 		gtk_event_controller_set_propagation_phase(GTK_EVENT_CONTROLLER(click), GtkPropagationPhase::GTK_PHASE_CAPTURE);
 		g_signal_connect(click, "pressed", G_CALLBACK(&Layer::click_pressed_cb), this);
 		gtk_widget_add_controller(root_overlay_, GTK_EVENT_CONTROLLER(click));
+	}
+
+	if (config_.capture_scroll)
+	{
+		GtkEventController *scroll = gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES);
+		gtk_event_controller_set_propagation_phase(scroll, GtkPropagationPhase::GTK_PHASE_CAPTURE);
+		g_signal_connect(scroll, "scroll", G_CALLBACK(scroll_event_cb), this);
+		gtk_widget_add_controller(root_overlay_, GTK_EVENT_CONTROLLER(scroll));
 	}
 }
 
@@ -210,6 +227,11 @@ void Layer::close()
 		drawing_area_ = nullptr;
 		root_overlay_ = nullptr;
 	}
+}
+
+void	Layer::on_scroll(double dx, double dy)
+{
+	(void)dx;(void)dy;
 }
 
 void Layer::on_draw(cairo_t *cr, int width, int height)

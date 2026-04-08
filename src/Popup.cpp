@@ -7,8 +7,6 @@ Popup::Popup(Overlay &owner, std::string name, Layer::Config cfg, PopupHandler *
 
 Popup::~Popup() = default;
 
-
-
 gboolean Popup::PopupHandler::close_popup_cb(gpointer user_data)
 {
 	Popup::PopupHandler *handler;

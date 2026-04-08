@@ -139,6 +139,7 @@ void Overlay::activate(GtkApplication *app)
 		{true, true, true, false},
 		true,
 		true,
+		true,
 		true
 	};
 	layers_.push_back(std::make_unique<TopOverlay>(
@@ -152,7 +153,8 @@ void Overlay::activate(GtkApplication *app)
 		{0, 0, 0, 0},
 		{true, false, true, true},
 		true,
-		false,
+		true,
+		true,
 		true
 	};
 	layers_.push_back(std::make_unique<LeftOverlay>(

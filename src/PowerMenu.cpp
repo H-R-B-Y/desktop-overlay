@@ -8,7 +8,8 @@ const Layer::Config PowerMenu::power_menu_config_ = {
 		{false, true, true, false}, // anchors
 		false, // exclusive
 		true, // capture hover
-		true // capture click
+		true, // capture click
+		false
 };
 
 const std::string PowerMenu::_icon_button::strs[3] = {
@@ -149,7 +150,7 @@ void PowerMenu::on_draw(cairo_t *cr, int width, int height)
 	// cairo_stroke(cr);
 }
 
-bool PowerMenu::on_click_pressed(int n_press, double x, double y)
+bool PowerMenu::on_click_pressed(int button, int n_press, double x, double y)
 {
 	return false;
 }

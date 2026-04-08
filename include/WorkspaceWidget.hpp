@@ -23,7 +23,7 @@ public:
 	void	on_hover_enter(double x, double y) override;
 	void	on_hover_move(double x, double y) override;
 	void	on_hover_leave(void) override;
-
+	void	on_scroll(double dx, double dy) override;
 	void	on_tick(void) override;
 
 	// click and scroll handlers needed
@@ -41,4 +41,6 @@ private:
 	std::vector<workspace_entry>	workspaces_;
 	int								focused_workspace_idx_;
 	int								visible_workspace_idx_;
+
+	bool							widget_hovered_;
 };

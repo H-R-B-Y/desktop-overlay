@@ -22,6 +22,7 @@ public:
 		bool exclusive;
 		bool capture_hover;
 		bool capture_click;
+		bool capture_scroll;
 	};
 
 	Layer(Overlay &owner, std::string name, Config config, DrawHandler draw_handler = {});
@@ -44,7 +45,8 @@ protected:
 	virtual void on_hover_enter(double x, double y);
 	virtual void on_hover_move(double x, double y);
 	virtual void on_hover_leave();
-	virtual bool on_click_pressed(int n_press, double x, double y);
+	virtual bool on_click_pressed(int button, int n_press, double x, double y);
+	virtual void on_scroll(double dx, double dy);
 	virtual void on_created();
 	virtual void on_closing();
 	virtual bool use_drawing_area() const;
@@ -60,7 +62,7 @@ private:
 	static void hover_move_cb(GtkEventControllerMotion *controller, double x, double y, gpointer user_data);
 	static void hover_leave_cb(GtkEventControllerMotion *controller, gpointer user_data);
 	static void click_pressed_cb(GtkGestureClick *gesture, int n_press, double x, double y, gpointer user_data);
-	
+	static void scroll_event_cb(GtkEventControllerScroll *controller, double dx, double dy, gpointer user_data);
 	void attach_shared_handlers();
 
 	Overlay &owner_;

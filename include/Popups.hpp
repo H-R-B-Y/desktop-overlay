@@ -14,7 +14,7 @@ protected:
 	void on_hover_enter(double x, double y) override;
 	void on_hover_move(double x, double y) override;
 	void on_hover_leave() override;
-	bool on_click_pressed(int n_press, double x, double y) override;
+	bool on_click_pressed(int button, int n_press, double x, double y) override;
 	void on_created() override;
 	void on_closing() override;
 
@@ -69,7 +69,7 @@ public:
 
 protected:
 	void on_draw(cairo_t *cr, int width, int height) override;
-	bool on_click_pressed(int n_press, double x, double y) override;
+	bool on_click_pressed(int button, int n_press, double x, double y) override;
 	void on_created() override;
 	void on_closing() override;
 
